@@ -16,6 +16,9 @@ var configuration = builder.Configuration;
 //configure mongo settings
 builder.Services.Configure<MongoDatabaseSettings>(configuration.GetSection("MongoDatabaseSettings"));
 builder.Services.AddSingleton<IMongoDatabaseSettings, MongoDatabaseSettings>(sp => sp.GetRequiredService<IOptions<MongoDatabaseSettings>>().Value);
+
+//automapper
+builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
 
