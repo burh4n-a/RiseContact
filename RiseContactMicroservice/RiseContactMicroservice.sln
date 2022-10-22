@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F13821D4-23C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Contact", "Rise.Contact\Rise.Contact.csproj", "{036F95E3-DF0F-4705-AEFA-226582A161ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Shared", "Rise.Shared\Rise.Shared.csproj", "{CE0E3355-B111-4ECF-9A44-76816F4E73E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +21,17 @@ Global
 		{036F95E3-DF0F-4705-AEFA-226582A161ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{036F95E3-DF0F-4705-AEFA-226582A161ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{036F95E3-DF0F-4705-AEFA-226582A161ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{036F95E3-DF0F-4705-AEFA-226582A161ED} = {E96FB11F-6560-4034-BB14-C674A70DBB06}
+		{CE0E3355-B111-4ECF-9A44-76816F4E73E9} = {F13821D4-23CE-4AAD-9FDD-2F28C86E272F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {464DD571-A723-45AC-AA6A-34113BFD247D}
