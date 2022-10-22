@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Rise.Contact.DataAccess.Abstract;
 
-public class MongoEntityBase
+public abstract class MongoEntityBase
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

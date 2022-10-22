@@ -8,5 +8,5 @@ public class Person : MongoEntityBase
     public string Surname { get; set; }
     public string Company { get; set; }
 
-    public List<Contact> Contacts { get; set; }
+    public IList<Contact> Contacts { get; set; }
 }
