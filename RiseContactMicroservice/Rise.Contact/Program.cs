@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Runtime;
+using Rise.Contact.DataAccess.Abstract;
+using Rise.Contact.DataAccess.Concreate;
 using Rise.Shared.Abstract;
 using Rise.Shared.Models;
 
@@ -19,7 +21,14 @@ builder.Services.AddSingleton<IMongoDatabaseSettings, MongoDatabaseSettings>(sp 
 
 //automapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+//injected services
+builder.Services.AddScoped<IPersonService, PersonService>(); 
+builder.Services.AddScoped<IContactService, ContactService>();
+
 var app = builder.Build();
+
+
 
 
 

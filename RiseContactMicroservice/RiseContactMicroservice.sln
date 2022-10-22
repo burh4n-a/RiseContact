@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Shared", "Rise.Shared\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CD14ECCD-B82D-4B6F-A78F-38A61E40E201}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Report", "Rise.Report\Rise.Report.csproj", "{AE3AF475-96F6-45CD-B612-1AE3506349CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE0E3355-B111-4ECF-9A44-76816F4E73E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE3AF475-96F6-45CD-B612-1AE3506349CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3AF475-96F6-45CD-B612-1AE3506349CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3AF475-96F6-45CD-B612-1AE3506349CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3AF475-96F6-45CD-B612-1AE3506349CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{036F95E3-DF0F-4705-AEFA-226582A161ED} = {E96FB11F-6560-4034-BB14-C674A70DBB06}
 		{CE0E3355-B111-4ECF-9A44-76816F4E73E9} = {F13821D4-23CE-4AAD-9FDD-2F28C86E272F}
+		{AE3AF475-96F6-45CD-B612-1AE3506349CF} = {E96FB11F-6560-4034-BB14-C674A70DBB06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {464DD571-A723-45AC-AA6A-34113BFD247D}

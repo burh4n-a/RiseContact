@@ -7,12 +7,12 @@ using Rise.Shared.Dtos;
 
 namespace Rise.Contact.DataAccess.Concreate;
 
-public class PersonContactService : IPersonContactService
+public class PersonService : IPersonService
 {
     private readonly IMongoCollection<Person> _personCollection;
     private readonly IMongoCollection<Entities.Contact> _contactCollection;
     private readonly IMapper _mapper;
-    public PersonContactService(IMongoDatabaseSettings databaseSettings, IMapper mapper)
+    public PersonService(IMongoDatabaseSettings databaseSettings, IMapper mapper)
     {
         _mapper = mapper;
         var mongoClient = new MongoClient(databaseSettings.ConnectionString);
@@ -24,6 +24,7 @@ public class PersonContactService : IPersonContactService
     public async Task<PersonDto> GetPerson(string id)
     {
         var person = await _personCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        person.Contacts = await _contactCollection.Find(x => x.PersonId == id).ToListAsync();
         return _mapper.Map<PersonDto>(person);
     }
 
@@ -38,21 +39,12 @@ public class PersonContactService : IPersonContactService
     {
         var person = _mapper.Map<Person>(input);
         await _personCollection.InsertOneAsync(person);
+        foreach (var contact in person.Contacts)
+        {
+            contact.PersonId = person.Id;
+        }
+        await _contactCollection.InsertManyAsync(person.Contacts);
         return _mapper.Map<PersonDto>(person);
-    }
-
-    public async Task<PersonDto> AddPersonContact(string personId, CreateContactDto contactInput)
-    {
-        var person = await _personCollection.Find(x => x.Id == personId).FirstOrDefaultAsync();
-        var mapContact = _mapper.Map<Entities.Contact>(contactInput);
-        person.Contacts.Add(mapContact);
-        return _mapper.Map<PersonDto>(person);
-    }
-
-    public async Task<bool> DeletePersonContact(string contactId)
-    {
-        var result = await _contactCollection.DeleteOneAsync(x => x.Id == contactId);
-        return result.DeletedCount > 0;
     }
 
     public async Task<bool> DeletePerson(string id)
@@ -70,6 +62,12 @@ public class PersonContactService : IPersonContactService
     public async Task<List<PersonDto>> GetAllWithDetailPersons()
     {
         var persons = await _personCollection.Find(x => true).ToListAsync();
+        var personIds = persons.Select(x => x.Id).ToList();
+        var contatcData = await _contactCollection.Find(x => personIds.Contains(x.PersonId)).ToListAsync();
+        foreach (var person in persons)
+        {
+            person.Contacts = contatcData.Where(x => x.PersonId == person.Id).ToList();
+        }
         return _mapper.Map<List<PersonDto>>(persons);
     }
 }

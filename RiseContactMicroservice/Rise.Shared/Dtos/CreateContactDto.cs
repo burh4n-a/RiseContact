@@ -9,4 +9,6 @@ public class CreateContactDto
     public ContactType ContactType { get; set; }
     [Required]
     public string ContactData { get; set; }
+    [Required]
+    public string PersonId { get; set; }
 }
