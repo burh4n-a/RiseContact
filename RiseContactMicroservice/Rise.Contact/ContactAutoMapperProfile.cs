@@ -12,6 +12,7 @@ public class ContactAutoMapperProfile : Profile
         CreateMap<CreatePersonDto,Person>().ReverseMap();
         CreateMap<Entities.Contact, ContactDto>().ReverseMap();
         CreateMap<CreateContactDto, Entities.Contact>().ReverseMap();
-        CreateMap<CreatePersonWithContactDto, Person>();
+        CreateMap<CreatePersonWithContactDto, Person>().ReverseMap();
+        CreateMap<Person, PersonWithoutDetailDto>().ReverseMap();
     }
 }
