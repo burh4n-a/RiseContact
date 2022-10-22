@@ -7,12 +7,12 @@ using Rise.Shared.Dtos;
 
 namespace Rise.Contact.DataAccess.Concreate;
 
-public class PersonService : IPersonService
+public class PersonContactService : IPersonContactService
 {
     private readonly IMongoCollection<Person> _personCollection;
     private readonly IMongoCollection<Entities.Contact> _contactCollection;
     private readonly IMapper _mapper;
-    public PersonService(IMongoDatabaseSettings databaseSettings, IMapper mapper)
+    public PersonContactService(IMongoDatabaseSettings databaseSettings, IMapper mapper)
     {
         _mapper = mapper;
         var mongoClient = new MongoClient(databaseSettings.ConnectionString);
@@ -24,7 +24,6 @@ public class PersonService : IPersonService
     public async Task<PersonDto> GetPerson(string id)
     {
         var person = await _personCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-        person.Contacts = await _contactCollection.Find(x => x.PersonId == id).ToListAsync();
         return _mapper.Map<PersonDto>(person);
     }
 
@@ -39,11 +38,6 @@ public class PersonService : IPersonService
     {
         var person = _mapper.Map<Person>(input);
         await _personCollection.InsertOneAsync(person);
-        foreach (var contact in person.Contacts)
-        {
-            contact.PersonId = person.Id;
-        }
-        await _contactCollection.InsertManyAsync(person.Contacts);
         return _mapper.Map<PersonDto>(person);
     }
 
@@ -62,12 +56,33 @@ public class PersonService : IPersonService
     public async Task<List<PersonDto>> GetAllWithDetailPersons()
     {
         var persons = await _personCollection.Find(x => true).ToListAsync();
-        var personIds = persons.Select(x => x.Id).ToList();
-        var contatcData = await _contactCollection.Find(x => personIds.Contains(x.PersonId)).ToListAsync();
-        foreach (var person in persons)
-        {
-            person.Contacts = contatcData.Where(x => x.PersonId == person.Id).ToList();
-        }
         return _mapper.Map<List<PersonDto>>(persons);
+    }
+
+    public async Task<ContactDto> AddPersonContact(CreatePersonContactDto contactInput)
+    {
+        var person = await _personCollection.Find(x => x.Id == contactInput.PersonId).FirstOrDefaultAsync();
+        var contact = _mapper.Map<Entities.Contact>(contactInput);
+        person.Contacts.Add(contact);
+        await _personCollection.ReplaceOneAsync(x => x.Id == person.Id, person);
+
+        return _mapper.Map<ContactDto>(contact);
+    }
+
+    public async Task<bool> DeletePersonContact(string personId, string contactId)
+    {
+        var person = await _personCollection.Find(x => x.Id == personId).FirstOrDefaultAsync();
+
+        var contact = person.Contacts.FirstOrDefault(x => x.Id == contactId);
+        if (contact != null)
+        {
+            person.Contacts.Remove(contact);
+            var result = await _personCollection.ReplaceOneAsync(x => x.Id == person.Id, person);
+
+            return result.ModifiedCount>0;
+
+        }
+
+        return false;
     }
 }

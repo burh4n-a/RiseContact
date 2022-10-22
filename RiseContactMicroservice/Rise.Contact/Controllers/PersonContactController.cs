@@ -10,13 +10,11 @@ namespace Rise.Contact.Controllers
     [ApiController]
     public class PersonContactController : ControllerBase
     {
-        private readonly IPersonService _personService;
-        private readonly IContactService _contactService;
+        private readonly IPersonContactService _personContactService;
 
-        public PersonContactController(IPersonService personService, IContactService contactService)
+        public PersonContactController(IPersonContactService personContactService)
         {
-            _personService = personService;
-            _contactService = contactService;
+            _personContactService = personContactService;
         }
 
         [HttpGet("GetAllPersons")]
@@ -24,7 +22,7 @@ namespace Rise.Contact.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAllPersons()
         {
-            var persons = await _personService.GetAllPersons();
+            var persons = await _personContactService.GetAllPersons();
             if (persons.Count <= 0)
             {
                 return NotFound();
@@ -39,7 +37,7 @@ namespace Rise.Contact.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAllPersonsWithDetail()
         {
-            var persons = await _personService.GetAllWithDetailPersons();
+            var persons = await _personContactService.GetAllWithDetailPersons();
             if (persons.Count <= 0)
             {
                 return NotFound();
@@ -59,7 +57,7 @@ namespace Rise.Contact.Controllers
                 return BadRequest();
             }
 
-            var saveResult = await _personService.CreatedPerson(person);
+            var saveResult = await _personContactService.CreatedPerson(person);
 
             return Ok(saveResult);
         }
@@ -73,7 +71,7 @@ namespace Rise.Contact.Controllers
                 return BadRequest();
             }
 
-            var saveResult = await _personService.CreatePersonWithContact(person);
+            var saveResult = await _personContactService.CreatePersonWithContact(person);
 
             return Ok(saveResult);
         }
@@ -87,35 +85,35 @@ namespace Rise.Contact.Controllers
                 return BadRequest();
             }
 
-            var deleteResult = await _personService.DeletePerson(personId);
+            var deleteResult = await _personContactService.DeletePerson(personId);
             return Ok(deleteResult);
 
         }
         [HttpDelete("DeletePersonContact")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeletePersonContact(string contactId)
+        public async Task<IActionResult> DeletePersonContact(string personId,string contactId)
         {
             if (string.IsNullOrEmpty(contactId))
             {
                 return BadRequest();
             }
 
-            var deleteResult = await _contactService.DeletePersonContact(contactId);
+            var deleteResult = await _personContactService.DeletePersonContact(personId,contactId);
             return Ok(deleteResult);
 
         }
         [HttpPost("CreatePersonContact")]
         [ProducesResponseType(typeof(PersonDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreatePersonContact(CreateContactDto contact)
+        public async Task<IActionResult> CreatePersonContact(CreatePersonContactDto contact)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var saveResult = await _contactService.AddPersonContact(contact);
+            var saveResult = await _personContactService.AddPersonContact(contact);
             if (saveResult== null)
             {
                 return BadRequest();

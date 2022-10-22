@@ -2,7 +2,7 @@
 
 namespace Rise.Contact.DataAccess.Abstract;
 
-public interface IPersonService
+public interface IPersonContactService
 {
     Task<PersonDto> GetPerson(string id);
     Task<PersonDto> CreatedPerson(CreatePersonDto input);
@@ -10,4 +10,6 @@ public interface IPersonService
     Task<bool> DeletePerson(string id);
     Task<List<PersonWithoutDetailDto>> GetAllPersons();
     Task<List<PersonDto>> GetAllWithDetailPersons();
+    Task<ContactDto> AddPersonContact(CreatePersonContactDto contactInput);
+    Task<bool> DeletePersonContact(string personId,string contactId);
 }

@@ -23,8 +23,7 @@ builder.Services.AddSingleton<IMongoDatabaseSettings, MongoDatabaseSettings>(sp 
 builder.Services.AddAutoMapper(typeof(Program));
 
 //injected services
-builder.Services.AddScoped<IPersonService, PersonService>(); 
-builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IPersonContactService, PersonContactService>();
 
 var app = builder.Build();
 

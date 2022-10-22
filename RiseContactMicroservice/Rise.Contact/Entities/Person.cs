@@ -9,4 +9,9 @@ public class Person : MongoEntityBase
     public string Company { get; set; }
 
     public IList<Contact> Contacts { get; set; }
+
+    public Person()
+    {
+        this.Contacts = new List<Contact>();   
+    }
 }
