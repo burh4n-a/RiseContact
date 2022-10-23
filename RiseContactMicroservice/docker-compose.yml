@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  rise.contact:
+    image: ${DOCKER_REGISTRY-}risecontact
+    build:
+      context: .
+      dockerfile: Rise.Contact/Dockerfile
+
+  rise.report:
+    image: ${DOCKER_REGISTRY-}risereport
+    build:
+      context: .
+      dockerfile: Rise.Report/Dockerfile
+
