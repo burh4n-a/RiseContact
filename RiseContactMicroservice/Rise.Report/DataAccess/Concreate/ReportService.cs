@@ -75,7 +75,7 @@ public class ReportService : IReportService
 
     }
 
-    public async Task CreateReport(string reportId, List<PersonDto> persons)
+    public async Task CreateReportWithData(string reportId, List<PersonDto> persons)
     {
         var createReportDto = new CreateReportDto
         {

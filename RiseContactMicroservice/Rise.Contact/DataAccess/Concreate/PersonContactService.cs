@@ -4,6 +4,7 @@ using Rise.Contact.DataAccess.Abstract;
 using Rise.MongoDb.Entity.Concreate;
 using Rise.Shared.Abstract;
 using Rise.Shared.Dtos;
+using Rise.Shared.Enums;
 
 namespace Rise.Contact.DataAccess.Concreate;
 
@@ -48,12 +49,49 @@ public class PersonContactService : IPersonContactService
     public async Task<List<PersonWithoutDetailDto>> GetAllPersons()
     {
         var persons = await _personCollection.Find(x => true).ToListAsync();
+
+        await FakePersonData(persons);
+
         return _mapper.Map<List<PersonWithoutDetailDto>>(persons);
+    }
+
+    private async Task FakePersonData(List<Person> persons)
+    {
+        if (persons.Count <= 0)
+        {
+            for (int i = 0; i < 200; i++)
+            {
+                var newPerson = new CreatePersonWithContactDto()
+                {
+                    Name = Faker.Name.First(),
+                    Surname = Faker.Name.Last(),
+                    Company = Faker.Company.Name(),
+                    Contacts = new List<CreateContactDto>()
+                    {
+                        new CreateContactDto()
+                        {
+                            ContactData = Faker.Phone.Number(),
+                            ContactType = ContactType.Phone
+                        },
+                        new CreateContactDto()
+                        {
+                            ContactData = Faker.Country.Name(),
+                            ContactType = ContactType.Location
+                        }
+                    }
+                };
+
+
+                var person = _mapper.Map<Person>(newPerson);
+                await _personCollection.InsertOneAsync(person);
+            }
+        }
     }
 
     public async Task<List<PersonDto>> GetAllWithDetailPersons()
     {
         var persons = await _personCollection.Find(x => true).ToListAsync();
+        await FakePersonData(persons);
         return _mapper.Map<List<PersonDto>>(persons);
     }
 

@@ -2,9 +2,15 @@ using Microsoft.Extensions.Options;
 using Rise.Shared.Abstract;
 using System;
 using MongoDB.Driver;
+using Refit;
 using Rise.Report.DataAccess.Abstract;
 using Rise.Report.DataAccess.Concreate;
+using Rise.Report.Rest;
 using MongoDatabaseSettings = Rise.Shared.Models.MongoDatabaseSettings;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,17 +32,25 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IReportService, ReportService>();
 
+//rest 
+builder.Services.AddRefitClient<IRefitPersonService>()
+    .ConfigureHttpClient((sp, c) =>
+    {
+        c.BaseAddress = new Uri("http://risecontact/api");
+        c.Timeout = TimeSpan.FromMinutes(1);
+    });
+
 builder.Services.AddCap(x =>
 {
-    x.UseRabbitMQ(x =>
-    {
-        x.HostName = configuration["RabbitMq:ConnectionString"];
-        x.UserName = "guest";
-        x.Password = "guest";
-        //x.Port = -1;
-        x.VirtualHost = "/";
-    });
-    x.UseMongoDB(configuration["Cap:MongoDbConnection"]);
+x.UseRabbitMQ(x =>
+{
+    x.HostName = configuration["RabbitMq:ConnectionString"];
+    x.UserName = "guest";
+    x.Password = "guest";
+    //x.Port = -1;
+    x.VirtualHost = "/";
+});
+x.UseMongoDB(configuration["Cap:MongoDbConnection"]);
 
 });
 
@@ -49,7 +63,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

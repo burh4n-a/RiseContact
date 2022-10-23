@@ -6,6 +6,7 @@ using Rise.Shared;
 using Rise.Shared.Dtos;
 using System.Net;
 using AutoMapper;
+using Rise.Report.Rest;
 
 namespace Rise.Report.Controllers
 {
@@ -16,12 +17,14 @@ namespace Rise.Report.Controllers
         private readonly ICapPublisher _capBus;
         private readonly IReportService _reportService;
         private readonly IMapper _mapper;
+        private readonly IRefitPersonService _refitPersonService;
 
-        public ReportController(ICapPublisher capBus, IReportService reportService, IMapper mapper)
+        public ReportController(ICapPublisher capBus, IReportService reportService, IMapper mapper, IRefitPersonService refitPersonService)
         {
             _capBus = capBus;
             _reportService = reportService;
             _mapper = mapper;
+            _refitPersonService = refitPersonService;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -35,7 +38,7 @@ namespace Rise.Report.Controllers
         [CapSubscribe(RiseContactConst.ReportRequestPublisherWithData)]
         public async Task ConsumerReportWithData(CreateReportRequestDto reportRequest)
         {
-            await _reportService.CreateReport(reportRequest.ReportRequestId,reportRequest.Persons);
+            await _reportService.CreateReportWithData(reportRequest.ReportRequestId, reportRequest.Persons);
         }
         [HttpPost("GetReportStatus")]
         [ProducesResponseType(typeof(CustomReportResultDto), (int)HttpStatusCode.BadRequest)]
@@ -75,13 +78,21 @@ namespace Rise.Report.Controllers
             }
             return Ok(reports);
         }
-        [HttpPost("CreateReportRequest")]
-        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> CreateReportRequest()
+        
+
+        [HttpGet("CreateReportWithRest")]
+        public async Task<IActionResult> CreateReportWithRest()
         {
             var reportId = Guid.NewGuid().ToString();
-            await _capBus.PublishAsync(RiseContactConst.ReportRequestPublisherName, reportId);
+            var persons = await _refitPersonService.GetAllPersonsWithDetail();
+
+            await _capBus.PublishAsync(RiseContactConst.ReportRequestPublisherWithData, new CreateReportRequestDto()
+            {
+                ReportRequestId = reportId,
+                Persons = persons
+            });
             return Ok(reportId);
+
         }
 
     }
