@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Rise.Report.Controllers
+namespace Rise.Contact.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -15,14 +15,12 @@ namespace Rise.Report.Controllers
             _capBus = capBus;
         }
 
-        [HttpGet]
-        [CapSubscribe("test")]
-        public void Consumer(DateTime date)
+        [HttpGet("test")]
+        public async Task<IActionResult> Publish()
         {
-            Console.WriteLine(date);
+            await _capBus.PublishAsync("test", DateTime.Now);
+
+            return NoContent();
         }
-
-
-
     }
 }
