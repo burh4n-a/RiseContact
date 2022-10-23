@@ -12,4 +12,5 @@ public interface IPersonContactService
     Task<List<PersonDto>> GetAllWithDetailPersons();
     Task<ContactDto> AddPersonContact(CreatePersonContactDto contactInput);
     Task<bool> DeletePersonContact(string personId,string contactId);
+
 }

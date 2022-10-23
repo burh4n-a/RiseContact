@@ -1,6 +1,6 @@
-﻿using Rise.Contact.DataAccess.Abstract;
+﻿using Rise.MongoDb.Entity.Abstract;
 
-namespace Rise.Contact.Entities;
+namespace Rise.MongoDb.Entity.Concreate;
 
 public class Person : MongoEntityBase
 {

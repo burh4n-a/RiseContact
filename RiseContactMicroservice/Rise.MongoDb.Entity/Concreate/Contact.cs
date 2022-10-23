@@ -1,11 +1,9 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using Rise.Contact.DataAccess.Abstract;
 using Rise.Shared.Enums;
-using System.Security.Cryptography;
 
-namespace Rise.Contact.Entities;
+namespace Rise.MongoDb.Entity.Concreate;
 
 public class Contact {
 

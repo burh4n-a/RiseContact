@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
 using Rise.Contact.DataAccess.Abstract;
-using Rise.Contact.Entities;
+using Rise.MongoDb.Entity.Concreate;
 using Rise.Shared.Abstract;
 using Rise.Shared.Dtos;
 
@@ -10,7 +10,6 @@ namespace Rise.Contact.DataAccess.Concreate;
 public class PersonContactService : IPersonContactService
 {
     private readonly IMongoCollection<Person> _personCollection;
-    private readonly IMongoCollection<Entities.Contact> _contactCollection;
     private readonly IMapper _mapper;
     public PersonContactService(IMongoDatabaseSettings databaseSettings, IMapper mapper)
     {
@@ -18,7 +17,6 @@ public class PersonContactService : IPersonContactService
         var mongoClient = new MongoClient(databaseSettings.ConnectionString);
         var mongoDb = mongoClient.GetDatabase(databaseSettings.DatabaseName);
         _personCollection = mongoDb.GetCollection<Person>(databaseSettings.PersonCollectionName);
-        _contactCollection = mongoDb.GetCollection<Entities.Contact>(databaseSettings.ContactCollectionName);
     }
 
     public async Task<PersonDto> GetPerson(string id)
@@ -62,7 +60,7 @@ public class PersonContactService : IPersonContactService
     public async Task<ContactDto> AddPersonContact(CreatePersonContactDto contactInput)
     {
         var person = await _personCollection.Find(x => x.Id == contactInput.PersonId).FirstOrDefaultAsync();
-        var contact = _mapper.Map<Entities.Contact>(contactInput);
+        var contact = _mapper.Map<MongoDb.Entity.Concreate.Contact>(contactInput);
         person.Contacts.Add(contact);
         await _personCollection.ReplaceOneAsync(x => x.Id == person.Id, person);
 

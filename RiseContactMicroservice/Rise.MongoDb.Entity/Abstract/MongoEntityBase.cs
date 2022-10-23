@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Rise.Report.DataAccess.Abstract;
+namespace Rise.MongoDb.Entity.Abstract;
 
 public abstract class MongoEntityBase
 {

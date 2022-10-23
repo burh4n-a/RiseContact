@@ -1,4 +1,4 @@
-﻿namespace Rise.Report.Entities;
+﻿namespace Rise.MongoDb.Entity.Concreate;
 
 public class ReportDetail
 {

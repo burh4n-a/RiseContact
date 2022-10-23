@@ -2,6 +2,8 @@ using Microsoft.Extensions.Options;
 using Rise.Shared.Abstract;
 using System;
 using MongoDB.Driver;
+using Rise.Report.DataAccess.Abstract;
+using Rise.Report.DataAccess.Concreate;
 using MongoDatabaseSettings = Rise.Shared.Models.MongoDatabaseSettings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
@@ -20,6 +21,10 @@ builder.Services.AddSingleton<IMongoDatabaseSettings, MongoDatabaseSettings>(sp 
 
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(configuration["Cap:MongoDbConnection"]));
 
+//automapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddScoped<IReportService, ReportService>();
 
 builder.Services.AddCap(x =>
 {

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rise.Contact.DataAccess.Abstract;
@@ -11,10 +12,12 @@ namespace Rise.Contact.Controllers
     public class PersonContactController : ControllerBase
     {
         private readonly IPersonContactService _personContactService;
+        private readonly ICapPublisher _capBus;
 
-        public PersonContactController(IPersonContactService personContactService)
+        public PersonContactController(IPersonContactService personContactService, ICapPublisher capBus)
         {
             _personContactService = personContactService;
+            _capBus = capBus;
         }
 
         [HttpGet("GetAllPersons")]
@@ -92,14 +95,14 @@ namespace Rise.Contact.Controllers
         [HttpDelete("DeletePersonContact")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeletePersonContact(string personId,string contactId)
+        public async Task<IActionResult> DeletePersonContact(string personId, string contactId)
         {
             if (string.IsNullOrEmpty(contactId))
             {
                 return BadRequest();
             }
 
-            var deleteResult = await _personContactService.DeletePersonContact(personId,contactId);
+            var deleteResult = await _personContactService.DeletePersonContact(personId, contactId);
             return Ok(deleteResult);
 
         }
@@ -114,12 +117,14 @@ namespace Rise.Contact.Controllers
             }
 
             var saveResult = await _personContactService.AddPersonContact(contact);
-            if (saveResult== null)
+            if (saveResult == null)
             {
                 return BadRequest();
             }
 
             return Ok(saveResult);
         }
+
+
     }
 }
