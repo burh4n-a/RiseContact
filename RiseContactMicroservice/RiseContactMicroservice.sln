@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rise.Report", "Rise.Report\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.MongoDb.Entity", "Rise.MongoDb.Entity\Rise.MongoDb.Entity.csproj", "{C5B4EA51-BD41-42A4-B196-5E5C82FCBEED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Microservice.Test", "Rise.Microservice.Test\Rise.Microservice.Test.csproj", "{DA03EAD9-210D-487C-8614-79719DB2FDE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C5B4EA51-BD41-42A4-B196-5E5C82FCBEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5B4EA51-BD41-42A4-B196-5E5C82FCBEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5B4EA51-BD41-42A4-B196-5E5C82FCBEED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA03EAD9-210D-487C-8614-79719DB2FDE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA03EAD9-210D-487C-8614-79719DB2FDE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA03EAD9-210D-487C-8614-79719DB2FDE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA03EAD9-210D-487C-8614-79719DB2FDE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{CE0E3355-B111-4ECF-9A44-76816F4E73E9} = {F13821D4-23CE-4AAD-9FDD-2F28C86E272F}
 		{AE3AF475-96F6-45CD-B612-1AE3506349CF} = {E96FB11F-6560-4034-BB14-C674A70DBB06}
 		{C5B4EA51-BD41-42A4-B196-5E5C82FCBEED} = {F13821D4-23CE-4AAD-9FDD-2F28C86E272F}
+		{DA03EAD9-210D-487C-8614-79719DB2FDE4} = {CD14ECCD-B82D-4B6F-A78F-38A61E40E201}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {464DD571-A723-45AC-AA6A-34113BFD247D}
