@@ -86,6 +86,7 @@ public class PersonContactService : IPersonContactService
                 await _personCollection.InsertOneAsync(person);
             }
         }
+        persons = await _personCollection.Find(x => true).ToListAsync();
     }
 
     public async Task<List<PersonDto>> GetAllWithDetailPersons()
