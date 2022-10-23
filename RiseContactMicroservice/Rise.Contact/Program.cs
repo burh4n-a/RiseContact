@@ -29,9 +29,9 @@ builder.Services.AddCap(x =>
     x.UseRabbitMQ(x =>
     {
         x.HostName = configuration["RabbitMq:ConnectionString"];
-        x.UserName = "admin";
-        x.Password = "123456";
-        x.Port = -1;
+        x.UserName = "guest";
+        x.Password = "guest";
+        //x.Port = -1;
         x.VirtualHost = "/";
     });
     x.UseMongoDB(configuration["Cap:MongoDbConnection"]);
