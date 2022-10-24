@@ -40,5 +40,8 @@ Burada amaç microservice haberleşmesi olduğu için 3 yol bunu sağlıyor, cas
  Bazı microservis yaklaşımlarında aynı db kullanmama gibi durumlar bile birbirine bağımlı verileri gerektiği durumlarda iki serviste te bu veriler tutulur.
  Çünkü servisin birisi durması durumunda diğeri çalışamayacak duruma gelir. aslında bir değil 2 servis te işlevsiz hale gelecektir.
  
- 
+ Verinin büyük olması durumunda da message broker üzerinden bu veriyi taşımak ta maliyet.
+
+Cap Kütüphanesi kullandım hem RabbitMq kullanmak zorunluluğunu kaldırıyor, İstenirse Kafka gibi diğer message broker ları kullanabiliyoruz. Hemde Bir Local Message Table desteği var. Message broker üzerine gelen istekleri bir veritabanı aracılığıyla saklar. Bu sayede veri kayıplarını da engellemiş olur. Expire olmamış istekleri tekrar yollar.
+
 
