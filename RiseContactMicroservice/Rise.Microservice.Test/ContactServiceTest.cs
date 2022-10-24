@@ -1,4 +1,5 @@
 using DotNetCore.CAP;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Rise.Contact.Controllers;
 using Rise.Contact.DataAccess.Abstract;
@@ -91,6 +92,21 @@ namespace Rise.Microservice.Test
            });
 
             Assert.Equal(51, persons.Count);
+
+        }
+
+        [Fact]
+        public async Task GetPersonsWithControllerTest()
+        {
+
+            _personContactServiceMock.Setup(x => x.GetAllWithDetailPersons()).ReturnsAsync(this._persons);
+
+
+            var result = await _personContactController.GetAllPersonsWithDetail();
+
+            Assert.IsType<OkObjectResult>(result);
+
+
 
         }
 
