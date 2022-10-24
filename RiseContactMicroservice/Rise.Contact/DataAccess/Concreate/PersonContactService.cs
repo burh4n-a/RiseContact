@@ -85,8 +85,9 @@ public class PersonContactService : IPersonContactService
                 var person = _mapper.Map<Person>(newPerson);
                 await _personCollection.InsertOneAsync(person);
             }
+            persons = await _personCollection.Find(x => true).ToListAsync();
         }
-        persons = await _personCollection.Find(x => true).ToListAsync();
+ 
     }
 
     public async Task<List<PersonDto>> GetAllWithDetailPersons()
