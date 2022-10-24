@@ -33,3 +33,12 @@ Buradaki CreateReportWithRest (Report Microservisinde) endpoint Veriyi almak iç
 ![report](https://user-images.githubusercontent.com/113763553/197459388-e26d5413-0571-4885-851d-bcd85c1543ca.jpg)
 
 
+Burada amaç microservice haberleşmesi olduğu için 3 yol bunu sağlıyor, case bunu istiyor. Ancak önemli bir konu var, microservis ler haberleşsin tamam. 
+
+ Amacımız veriyi alıp bir rapor oluşturmak sa veriyi contact tan gelen bir isteği report a bir message broker  ile bildirip  gerekli veriyi db den okuması ve raporu oluşturması daha sağlıklı (Tabiki db erişim yapabiliyor olaması şartıyla)
+ 
+ Bazı microservis yaklaşımlarında aynı db kullanmama gibi durumlar bile birbirine bağımlı verileri gerektiği durumlarda iki serviste te bu veriler tutulur.
+ Çünkü servisin birisi durması durumunda diğeri çalışamayacak duruma gelir. aslında bir değil 2 servis te işlevsiz hale gelecektir.
+ 
+ 
+
