@@ -5,9 +5,10 @@
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
-Refit
-Cap
-RabbitMq
+Refit: 
+Cap: 
+RabbitMq: 
+MongoDb: 
 
 
 Burada rapor oluşturmak için 3 farklı endpoin oluşturdum. Temel ve önemli farklılıkları var!
